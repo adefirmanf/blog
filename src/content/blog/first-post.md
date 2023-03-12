@@ -4,7 +4,7 @@ subtitle: "Finally, I'm starting to write a blog in here"
 tags: ["First Post"]
 image: "/images/contents/firstpost.jpeg"
 published_date: '25-02-2023'
-headline: true
+headline: false
 comparision:
   - name: 'John'
     age: 30
