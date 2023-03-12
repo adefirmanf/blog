@@ -88,7 +88,7 @@ const tagCollections = [...new Set(loadGetCollections(posts, sortBy, Infinity).m
                 <div class="col-lg-6 col-md-12 col-sm-12 col-12 sal-animate" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
                     <div class="rbt-card variation-02 height-330 rbt-hover">
                         <BlogCard
-                            title="Test" href={headline.mainHeadline.href} 
+                            title={headline.mainHeadline.title} href={headline.mainHeadline.href} 
                             body={headline.mainHeadline.body}
                             published_date={headline.mainHeadline.published_date}
                             image={headline.mainHeadline.image}

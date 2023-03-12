@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import Default from '@layouts/Default.astro';
 const posts = await getCollection("blog")
-console.log(posts)
 ---
 <Default 
     posts={posts} 

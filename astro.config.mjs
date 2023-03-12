@@ -46,7 +46,7 @@ export default defineConfig({
                                                     {
                                                         type : 'element',
                                                         tagName : 'button',
-                                                        properties : {className : 'accordion-button', type: 'button', "data-bs-toggle":"collapse", "data-bs-target":"#collapseOne", "aria-expanded":"true", "aria-controls":"collapseOne", id:"button-toc", value:"Table Of Contents"},
+                                                        properties : {className : 'accordion-button collapsed', type: 'button', "data-bs-toggle":"collapse", "data-bs-target":"#collapseOne", "aria-expanded":"true", "aria-controls":"collapseOne", id:"button-toc", value:"Table Of Contents"},
                                                         children : [],
                                                     }
                                                 ], 
@@ -54,7 +54,7 @@ export default defineConfig({
                                             {
                                                 type: 'element',
                                                 tagName: 'div',
-                                                properties: {className : 'accordion-collapse collapse show', "aria-labelledby":"headingOne", "data-bs-parent":"#accordionExamplea1", id:"collapseOne"},
+                                                properties: {className : 'accordion-collapse collapse hide', "aria-labelledby":"headingOne", "data-bs-parent":"#accordionExamplea1", id:"collapseOne"},
                                                 children: [{
                                                     type: 'element',
                                                     tagName : 'div',

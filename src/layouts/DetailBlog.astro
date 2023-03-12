@@ -20,7 +20,7 @@ const {author, title, subtitle, tags, image, published_date} = Astro.props;
                 <ul class="meta-list justify-content-center mb--10">
                     <li class="list-item">
                         <div class="author-thumbnail">
-                            <img src="/images/testimonial/client-06.png" alt="blog-image">
+                            <img src="/images/contents/me.jpeg" alt="blog-image">
                         </div>
                         <div class="author-info">
                             <a href="#"><strong>{author}</strong></a>
@@ -61,7 +61,7 @@ const {author, title, subtitle, tags, image, published_date} = Astro.props;
                                     <i class="feather-facebook"></i>
                                 </a>
                             </li>
-                            <li><a href="https://www.twitter.com">
+                            <li><a href="https://twitter.com/intent/tweet">
                                     <i class="feather-twitter"></i>
                                 </a>
                             </li>
@@ -82,24 +82,22 @@ const {author, title, subtitle, tags, image, published_date} = Astro.props;
                         <div class="media">
                             <div class="thumbnail">
                                 <a href="#">
-                                    <img src="/images/testimonial/testimonial-4.jpg" alt="Author Images">
+                                    <img src="/images/contents/me.jpeg" alt="Author Images">
                                 </a>
                             </div>
                             <div class="media-body">
                                 <div class="author-info">
                                     <h5 class="title">
                                         <a class="hover-flip-item-wrapper" href="#">
-                                            Farjana Bawnia
+                                            Ade Firman Fauzi
                                         </a>
                                     </h5>
-                                    <span class="b3 subtitle">Sr. UX Designer</span>
+                                    <span class="b3 subtitle">Software Engineer</span>
                                 </div>
                                 <div class="content">
-                                    <p class="description">At 29 years old, my favorite compliment is being
-                                        told that I look like my mom. Seeing myself in her image, like this
-                                        daughter up top.</p>
+                                    <p class="description">Building a services and other stuff</p>
                                     <ul class="social-icon social-default icon-naked justify-content-start">
-                                        <li><a href="https://www.facebook.com/">
+                                        <li><a href="https://www.facebook.com/adefirmanf.98">
                                                 <i class="feather-facebook"></i>
                                             </a>
                                         </li>
@@ -107,11 +105,11 @@ const {author, title, subtitle, tags, image, published_date} = Astro.props;
                                                 <i class="feather-twitter"></i>
                                             </a>
                                         </li>
-                                        <li><a href="https://www.instagram.com/">
+                                        <li><a href="https://www.instagram.com/adefirmanf_98">
                                                 <i class="feather-instagram"></i>
                                             </a>
                                         </li>
-                                        <li><a href="https://www.linkdin.com/">
+                                        <li><a href="https://www.linkedin.com/in/adefirmanf/">
                                                 <i class="feather-linkedin"></i>
                                             </a>
                                         </li>
@@ -129,3 +127,8 @@ const {author, title, subtitle, tags, image, published_date} = Astro.props;
 <script is:inline>
     document.getElementById("button-toc").textContent += "Table of Contents"
 </script>
+<style>
+.about-author .thumbnail a img{
+    border-radius: 275px !important;
+}    
+</style>
