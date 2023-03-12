@@ -1,7 +1,7 @@
 ---
 title: "First Experience with Flutter"
 subtitle: "My first experience with Flutter "
-tags: ["How To", "Dev"]
+tags: ["Dev"]
 image: "/images/contents/flutter-first-time.png"
 published_date: '12-03-2023'
 headline: true
