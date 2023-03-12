@@ -1,0 +1,37 @@
+---
+type Props = {
+    title: string;
+    image: string;
+    href: string;
+    body?: string;
+    author?: string;
+    published_date?: string;
+};
+
+import ReadingTime from "reading-time"
+const {title, image, body, author, href, published_date} = Astro.props;
+const time_to_read = body ? ReadingTime(body).text : null;
+
+const MAX_TEXT_LENGTH = 120
+const short_description = body ? 
+    body.length > MAX_TEXT_LENGTH ? body.substring(0, MAX_TEXT_LENGTH) : body
+    : null
+---
+<div class="rbt-card-img">
+    <a href={href}>
+        <img src={image} alt="Card image"> </a>
+</div>
+<div class="rbt-card-body">
+    <h5 class="rbt-card-title"><a href={href}>{title}.</a></h5>
+
+    <ul class="blog-meta">
+        {author && (<li><i class="feather-user"></i>{author}</li>)}
+        {published_date && (<li><i class="feather-clock"></i>{published_date}</li>)}
+        {time_to_read && (<li><i class="feather-watch"></i>{time_to_read}</li>)}
+    </ul>
+    <p class="rbt-card-text">{short_description}</p>
+    <div class="rbt-card-bottom">
+        <a class="transparent-button" href={href}>Learn
+            More<i><svg width="17" height="12" xmlns="http://www.w3.org/2000/svg"><g stroke="#27374D" fill="none" fill-rule="evenodd"><path d="M10.614 0l5.629 5.629-5.63 5.629"></path><path stroke-linecap="square" d="M.663 5.572h14.594"></path></g></svg></i></a>
+    </div>
+</div>

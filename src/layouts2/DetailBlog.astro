@@ -1,0 +1,131 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+type Props = {
+    subtitle: string;
+    author: string;
+    title: string;
+    tags: string[];
+    image: string;
+    published_date: string;
+}
+
+const {author, title, subtitle, tags, image, published_date} = Astro.props;
+---
+<BaseLayout title={title} description={subtitle} image={image}>
+    <div class="rbt-overlay-page-wrapper">
+        <div class="breadcrumb-image-container breadcrumb-style-max-width">
+
+            <div class="breadcrumb-content-top text-center">
+                <ul class="meta-list justify-content-center mb--10">
+                    <li class="list-item">
+                        <div class="author-thumbnail">
+                            <img src="/images/testimonial/client-06.png" alt="blog-image">
+                        </div>
+                        <div class="author-info">
+                            <a href="#"><strong>{author}</strong></a>
+                        </div>
+                    </li>
+                    <li class="list-item">
+                        <i class="feather-clock"></i>
+                        <span>{published_date}</span>
+                    </li>
+                </ul>
+                <h1 class="title">{title}</h1>
+                <p>{subtitle}</p>
+            </div>
+        </div>
+        <div class="rbt-blog-details-area rbt-section-gapBottom breadcrumb-style-max-width">
+            <div class="blog-content-wrapper rbt-article-content-wrapper">
+
+                <div class="content">
+                    <div class="post-thumbnail mb--30 position-relative wp-block-image alignwide">
+                        <figure>
+                            <img src={image} alt="Blog Images">
+                            <figcaption></figcaption>
+                        </figure>
+                    </div>
+                    <p></p>
+                    <slot></slot>
+                    <!-- BLog Tag Clound  -->
+                    <div class="tagcloud">
+                        {tags.map(n=>(
+                            <a href={`/tags/${n}`}>{n}</a>
+                        ))}
+                    </div>
+
+                    <!-- Social Share Block  -->
+                    <div class="social-share-block">
+                        <ul class="social-icon social-default transparent-with-border">
+                            <li><a href="https://www.facebook.com/">
+                                    <i class="feather-facebook"></i>
+                                </a>
+                            </li>
+                            <li><a href="https://www.twitter.com">
+                                    <i class="feather-twitter"></i>
+                                </a>
+                            </li>
+                            <li><a href="https://www.instagram.com/">
+                                    <i class="feather-instagram"></i>
+                                </a>
+                            </li>
+                            <li><a href="https://www.linkdin.com/">
+                                    <i class="feather-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                    <!-- Blog Author  -->
+                    <div class="about-author">
+                        <div class="media">
+                            <div class="thumbnail">
+                                <a href="#">
+                                    <img src="/images/testimonial/testimonial-4.jpg" alt="Author Images">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <div class="author-info">
+                                    <h5 class="title">
+                                        <a class="hover-flip-item-wrapper" href="#">
+                                            Farjana Bawnia
+                                        </a>
+                                    </h5>
+                                    <span class="b3 subtitle">Sr. UX Designer</span>
+                                </div>
+                                <div class="content">
+                                    <p class="description">At 29 years old, my favorite compliment is being
+                                        told that I look like my mom. Seeing myself in her image, like this
+                                        daughter up top.</p>
+                                    <ul class="social-icon social-default icon-naked justify-content-start">
+                                        <li><a href="https://www.facebook.com/">
+                                                <i class="feather-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li><a href="https://www.twitter.com">
+                                                <i class="feather-twitter"></i>
+                                            </a>
+                                        </li>
+                                        <li><a href="https://www.instagram.com/">
+                                                <i class="feather-instagram"></i>
+                                            </a>
+                                        </li>
+                                        <li><a href="https://www.linkdin.com/">
+                                                <i class="feather-linkedin"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</BaseLayout>
+<script is:inline>
+    document.getElementById("button-toc").textContent += "Table of Contents"
+</script>

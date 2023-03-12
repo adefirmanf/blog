@@ -1,0 +1,197 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Banner from "@c/Banner.astro"
+import Headline from "@c/Headline.astro"
+import BlogCard from "@c/BlogCard.astro"
+import SearchBar from "@c/SearchBar.astro"
+import type { CollectionEntry } from 'astro:content';
+
+type Props = {
+    pageSize: number,
+    sortBy: 'asc' | 'desc'
+    posts: CollectionEntry<'blog'>[]
+    pagedPosts : CollectionEntry<'blog'>[]
+    isShowHeadline: boolean
+    pagination?: any
+    readMoreUrl?: string
+}
+
+type Post = {
+    title:string,
+    tags: any[],
+    href: string,
+    body: string,
+    image: string,
+    author: string,
+    published_date: string,
+    headline: boolean,
+}
+
+type Headline = {
+    mainHeadline: Post,
+    listHeadline: Post[]
+}
+
+const {posts, pagedPosts, pageSize, sortBy, isShowHeadline, pagination, readMoreUrl} = Astro.props
+
+const loadHeadline = () : Headline => {
+    const headline = posts.filter(n => n.data.headline === true).map(n => {
+        const {data, slug, body} = n
+        return {
+            title : data.title,
+            tags :  data.tags,
+            body,
+            href: `/c/${slug}`,
+            image: data.image,
+            published_date: data.published_date,
+            author: data.author,
+            headline: data.headline
+        }
+    })
+    return {
+        mainHeadline : headline[0],
+        listHeadline : headline
+    }
+}
+
+const loadGetCollections = (posts : CollectionEntry<'blog'>[], sortBy : string, defaultPageSize : number) : Post[] => {
+    const sort = sortBy === 'asc' ? 
+        posts.sort((a, b) => new Date(a.data.published_date as string).getTime() - new Date(b.data.published_date as string).getTime()) : 
+        posts.sort((a, b) => new Date(b.data.published_date as string).getTime() - new Date(a.data.published_date as string).getTime()) 
+    return sort.slice(0, defaultPageSize).map(n => {
+        const {data, slug, body} = n
+        return {
+            title : data.title,
+            tags: data.tags,
+            body,
+            href: `/c/${slug}`,
+            image: data.image,
+            published_date: data.published_date,
+            author: data.author,
+            headline: data.headline
+        }
+    })
+}
+const headline = loadHeadline()
+const allCollections = loadGetCollections(posts, sortBy, pageSize)
+const pagedCollections = loadGetCollections(pagedPosts, sortBy, pageSize)
+const tagCollections = [...new Set(loadGetCollections(posts, sortBy, Infinity).map((n) => n.tags).flat())];
+
+---
+<BaseLayout title="Hello">
+    <Banner title="#Blog" description="Hello world"></Banner>
+    <div class="rbt-blog-area rbt-section-overlayping-top rbt-section-gapBottom">
+        {isShowHeadline && (
+            <div class="container">
+            <Headline title={headline.mainHeadline.title} href={headline.mainHeadline.href}></Headline>
+            <div class="row g-5">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12 sal-animate" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+                    <div class="rbt-card variation-02 height-330 rbt-hover">
+                        <BlogCard
+                            title="Test" href={headline.mainHeadline.href} 
+                            body={headline.mainHeadline.body}
+                            published_date={headline.mainHeadline.published_date}
+                            image={headline.mainHeadline.image}
+                            author={headline.mainHeadline.author}
+                            ></BlogCard>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 col-12 sal-animate" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
+                    {headline.listHeadline.map(n => (
+                        <div class="rbt-card card-list variation-02 rbt-hover mb--30">                            
+                            <BlogCard title={n.title} href={n.href} image={n.image} >
+                            </BlogCard>
+                        </div>
+                    ))}
+                    </div>
+                </div>
+        </div>)}
+        <div class="rbt-blog-area my-5 p-2">
+            <div class="container">
+                <div class="row row--30 gy-5">
+                    {isShowHeadline && (<div class="col-lg-12">
+                        <div class="sction-title">
+                            <h2 class="rbt-title-style-3"></h2>
+                        </div>
+                    </div>)}
+                    <div class="col-lg-8">
+                        <div class="row g-5">
+                            {pagedCollections.map(n => (
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="rbt-blog-grid rbt-card variation-02 rbt-hover">
+                                        <BlogCard title={n.title} href={n.href} image={n.image} author={n.author} body={n.body} >
+                                        </BlogCard>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 mt--60">
+                                <nav>
+                                    <ul class="rbt-pagination">
+                                        {!pagination && (<div class="section-title text-center mb--50">
+                                            <a href={readMoreUrl}><span class="subtitle bg-primary-opacity">Read More</span></a>
+                                        </div>)}
+                                        {pagination && (
+                                            pagination.currentPage > 1 && 
+                                                (<li><a href={pagination.url.prev} aria-label="Previous"><i class="feather-chevron-left"></i></a></li>)
+                                        )}
+                                        {pagination && Array.from({length : pagination.lastPage}, (_, i) => 
+                                            (<li class={pagination.currentPage === i+1 ? 'active' : ''}><a href={`${i+1}`}>{i+1}</a></li>)
+                                            
+                                        )}
+                                        {pagination && (
+                                            pagination.currentPage < pagination.lastPage && 
+                                                (<li><a href={pagination.url.next} aria-label="Next"><i class="feather-chevron-right"></i></a></li>)
+                                        )}
+                                        </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <aside class="rbt-sidebar-widget-wrapper">
+                            <div class="rbt-single-widget rbt-widget-search">
+                                <div class="inner">
+                                <SearchBar/>
+                                </div>
+                            </div>
+                            <div class="rbt-single-widget rbt-widget-recent">
+                                <div class="inner">
+                                    <h4 class="rbt-widget-title">Recent Post</h4>
+                                    <ul class="rbt-sidebar-list-wrapper recent-post-list">
+                                        {allCollections.slice(0, 3).map(n => (
+                                            <li>
+                                                <div class="thumbnail">
+                                                    <a href={n.href}>
+                                                        <img src={n.image} alt="Event Images"/>
+                                                    </a>
+                                                </div>
+                                                <div class="content">
+                                                    <h6 class="title"><a href={n.href}>{n.title}</a></h6>
+                                                    <ul class="rbt-meta">
+                                                        <li><i class="feather-clock"></i>{n.published_date}</li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="rbt-single-widget rbt-widget-tag">
+                                <div class="inner">
+                                    <h4 class="rbt-widget-title">Tags</h4>
+                                    <div class="rbt-sidebar-list-wrapper rbt-tag-list">
+                                        {tagCollections.map(n => (
+                                            <a href={`/tags/${n}`}>{n}</a>
+                                       ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import Default from "../../layouts2/Default.astro"
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection("blog");
+  const uniqueTags = [...new Set(allPosts.map((post) => post.data.tags).flat())];
+
+  return uniqueTags.map((tag) => {
+    const filteredPosts = allPosts.filter((post) =>
+      post.data.tags.includes(tag)
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts, allPosts },
+    };
+  });
+}
+
+const { posts, allPosts } = Astro.props;
+const {tag} = Astro.params
+
+---
+<Default 
+    posts={allPosts} 
+    pagedPosts={posts} 
+    pageSize={4} sortBy={'asc'} 
+    isShowHeadline={false}
+    readMoreUrl={`${tag}/2`}
+    >
+</Default>
