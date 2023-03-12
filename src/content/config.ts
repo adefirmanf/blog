@@ -7,6 +7,7 @@ const blogCollection = defineCollection({
     author: z.string().default('Ade Firman F'),
     subtitle: z.string(),
     title: z.string(),
+    drafts: z.boolean().optional(),
     tags: z.array(z.string()),
     published_date: z.string(),
     image: z.string().optional(),
