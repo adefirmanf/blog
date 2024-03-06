@@ -20,13 +20,13 @@ import Gallery from "../components/Gallery.astro";
 
   <div id="wrapper">
     <div class="p-4 p-header sticky w-full top-0 z-40 bg-white">
-      <nav class="p-1">
+      <nav class="">
         <div
-          class="max-w-screen-xl flex flex-wrap xs:items-center md:items-end justify-between mx-auto sm:flex-row md:flex-col"
+          class="max-w-screen-xl flex flex-wrap xs:content-start md:content-end xs:max-h-[4vh] md:max-h-[10vh] xs:items-start md:items-end justify-between mx-auto sm:flex-row md:flex-col"
         >
           <div class="information-bar">
             <div
-              class="m-2 flex flex-wrap place-items-start mx-auto xs:gap-1 xs:flex-col md:flex-row md:gap-4"
+              class="md:m-2 flex flex-wrap xs:items-start xs:place-items-start mx-auto xs:gap-1 xs:flex-col md:flex-row md:gap-4"
             >
               <a href="tel:+6282260365638" class="text-2xs font-light"
                 >Phone: (+62) 822-6036-5638</a
@@ -36,8 +36,8 @@ import Gallery from "../components/Gallery.astro";
               >
             </div>
           </div>
-          <div class="brand xs:block md:hidden mr-20">
-            <h1 class="text-2xl" style="font-family:'Musashi'; font-size: 70px">
+          <div class="brand xs:items-start align-top md:hidden text-left mt-[-5px] mr-24">
+            <h1 class="xs:text-[36px]" style="font-family:'Musashi';">
               AF
             </h1>
           </div>
